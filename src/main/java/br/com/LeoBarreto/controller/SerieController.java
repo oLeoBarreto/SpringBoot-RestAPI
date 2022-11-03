@@ -1,6 +1,8 @@
 package br.com.LeoBarreto.controller;
 
 import br.com.LeoBarreto.domain.Serie;
+import br.com.LeoBarreto.request.SeriePostRequestBody;
+import br.com.LeoBarreto.request.SeriePutRequestBody;
 import br.com.LeoBarreto.service.SerieService;
 import br.com.LeoBarreto.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -27,12 +28,12 @@ public class SerieController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Serie> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(serieService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(serieService.findByIdOrBadRequestException(id), HttpStatus.FOUND);
     }
 
     @PostMapping
-    public ResponseEntity<Serie> save(@RequestBody Serie serie) {
-        return new ResponseEntity<>(serieService.save(serie), HttpStatus.CREATED);
+    public ResponseEntity<Serie> save(@RequestBody SeriePostRequestBody seriePostRequestBody) {
+        return new ResponseEntity<>(serieService.save(seriePostRequestBody), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -42,8 +43,8 @@ public class SerieController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Serie serie) {
-        serieService.replace(serie);
+    public ResponseEntity<Void> replace(@RequestBody SeriePutRequestBody seriePutRequestBody) {
+        serieService.replace(seriePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
