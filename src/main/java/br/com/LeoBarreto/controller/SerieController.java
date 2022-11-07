@@ -4,13 +4,13 @@ import br.com.LeoBarreto.domain.Serie;
 import br.com.LeoBarreto.request.SeriePostRequestBody;
 import br.com.LeoBarreto.request.SeriePutRequestBody;
 import br.com.LeoBarreto.service.SerieService;
-import br.com.LeoBarreto.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +18,6 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor
 public class SerieController {
-    private final DateUtil dateUtil;
     private final SerieService serieService;
 
     @GetMapping
@@ -31,8 +30,13 @@ public class SerieController {
         return new ResponseEntity<>(serieService.findByIdOrBadRequestException(id), HttpStatus.FOUND);
     }
 
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<Serie>> findByName(@RequestParam(required = false) String name) {
+        return new ResponseEntity<>(serieService.findByName(name), HttpStatus.FOUND);
+    }
+
     @PostMapping
-    public ResponseEntity<Serie> save(@RequestBody SeriePostRequestBody seriePostRequestBody) {
+    public ResponseEntity<Serie> save(@RequestBody @Valid SeriePostRequestBody seriePostRequestBody) {
         return new ResponseEntity<>(serieService.save(seriePostRequestBody), HttpStatus.CREATED);
     }
 
