@@ -1,4 +1,4 @@
-package br.com.LeoBarreto.repository;
+package br.com.LeoBarreto.mapper.repository;
 
 import br.com.LeoBarreto.domain.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;

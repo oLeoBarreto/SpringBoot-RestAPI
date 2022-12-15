@@ -11,3 +11,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+loggin:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG

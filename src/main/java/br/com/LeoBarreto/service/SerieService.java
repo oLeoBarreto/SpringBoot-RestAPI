@@ -3,10 +3,12 @@ package br.com.LeoBarreto.service;
 import br.com.LeoBarreto.domain.Serie;
 import br.com.LeoBarreto.exception.BadRequestException;
 import br.com.LeoBarreto.mapper.SerieMapper;
-import br.com.LeoBarreto.repository.SerieRepository;
+import br.com.LeoBarreto.mapper.repository.SerieRepository;
 import br.com.LeoBarreto.request.SeriePostRequestBody;
 import br.com.LeoBarreto.request.SeriePutRequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +20,8 @@ public class SerieService{
 
     private final SerieRepository serieRepository;
 
-    public List<Serie> listAll() {
-        return serieRepository.findAll();
+    public Page<Serie> listAll(Pageable pageable) {
+        return serieRepository.findAll(pageable);
     }
 
     public List<Serie> findByName(String name) {
