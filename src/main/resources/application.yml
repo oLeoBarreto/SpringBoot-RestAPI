@@ -17,3 +17,10 @@ loggin:
     org:
       hibernate:
         SQL: DEBUG
+
+springdoc:
+  version: '@springdoc.version@'
+  swagger-ui:
+    use-root-path: false
+    path: /swagger-ui.html
+    enabled: true
