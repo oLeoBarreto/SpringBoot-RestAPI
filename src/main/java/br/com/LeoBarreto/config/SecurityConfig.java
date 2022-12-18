@@ -25,6 +25,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/series/admin/**").hasRole("ADMIN")
                 .antMatchers("/series/**").hasRole("USER")
+                .antMatchers("/actuator/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

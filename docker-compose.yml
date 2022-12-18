@@ -2,13 +2,26 @@ version: '3.8'
 services:
   db:
     image: mysql
-    container_name: springBootE2.mySql.container
+    container_name: mySql.container
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
       - devdojo_data:/var/lib/mysql
-
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus.container
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+  grafana:
+    image: grafana/grafana:8.5.6
+    container_name: grafana.container
+    ports:
+      - "3000:3000"
 volumes:
   devdojo_data:

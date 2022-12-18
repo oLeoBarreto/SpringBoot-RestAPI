@@ -24,3 +24,12 @@ springdoc:
     use-root-path: false
     path: /swagger-ui.html
     enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, prometheus
+  info:
+    env:
+      enabled: true
