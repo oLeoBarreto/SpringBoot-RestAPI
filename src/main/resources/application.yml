@@ -11,6 +11,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  cache:
+    type: jcache
+    jcache:
+      provider: com.hazelcast.cache.impl.HazelcastServerCachingProvider
+      config: classpath:hazelcast.xml
 
 loggin:
   level:
@@ -33,3 +38,14 @@ management:
   info:
     env:
       enabled: true
+
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: rateLimit
+      url: .*
+      rate-limits:
+        - bandwidths:
+          - capacity: 10
+            time: 10
+            unit: seconds
